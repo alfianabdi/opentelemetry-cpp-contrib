@@ -1,5 +1,7 @@
 #include <opentelemetry/sdk/trace/processor.h>
 #include <opentelemetry/trace/span.h>
+#include <opentelemetry/sdk/trace/aws_xray_id_generator.h>
+
 #include <algorithm>
 #include <unordered_map>
 #include <vector>
