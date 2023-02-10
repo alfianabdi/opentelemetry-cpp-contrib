@@ -8,6 +8,7 @@
 #include <opentelemetry/sdk/trace/processor.h>
 #include <opentelemetry/trace/span.h>
 #include <opentelemetry/sdk/trace/aws_xray_id_generator.h>
+#include <opentelemetry/sdk/trace/aws_xray_id_generator_factory.h>
 
 #include <algorithm>
 #include <unordered_map>
@@ -1123,7 +1124,7 @@ static ngx_int_t OtelNgxStart(ngx_cycle_t* cycle) {
       std::move(processor),
       opentelemetry::sdk::resource::Resource::Create({{"service.name", agentConf->service.name}}),
       std::move(sampler),
-      std::unique_ptr<opentelemetry::sdk::trace::IdGenerator>(new opentelemetry::sdk::trace::AwsXrayIdGenerator())
+      opentelemetry::sdk::trace::AwsXrayIdGeneratorFactory::Create()
     ));
 
   opentelemetry::trace::Provider::SetTracerProvider(std::move(provider));
